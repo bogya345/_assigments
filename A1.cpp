@@ -4,8 +4,8 @@
 #include <mpi.h>
 #include <omp.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <time.h>
+#include <stdlib.h>
 #include <sstream>
 
 using namespace std;
@@ -22,40 +22,46 @@ int main(int argc, char **argv)
 
     // cout << "LOL OK " <<  << endl;
     const int len = stoi(size);
-    
+
     cout << "Allocating array with [" << size << "] size" << endl;
     int *arr = new int[len];
-    for(int i=0; i<=len; i++) {
+    for (int i = 0; i <= len; i++)
+    {
         // arr[i] = rand();
         arr[i] = i;
-        cout << "arr[" << i << "] = " << i << endl; 
-        cout << "arr[" << i << "] == " << arr[i] << endl << endl;
+        // cout << "arr[" << i << "] = " << i << endl;
+        // cout << "arr[" << i << "] == " << arr[i] << endl << endl;
     }
 
     printf("Start of parallel threads\n");
 
-    #pragma omp parallel shared(arr, len) num_threads(10)
+#pragma omp parallel shared(arr, len) num_threads(10)
     {
         int threadNum = omp_get_thread_num();
         cout << "Thread #" + to_string(threadNum) + "# starts.\n";
 
         clock_t t = clock();
 
-        int step = (len/10);
+        int step = (len / 10);
         int startIndex = step * threadNum;
         int endIndex = startIndex + step;
 
-        int max = arr[startIndex];
-        // cout << "#" << threadNum << "# startIndex == " << startIndex << endl;
-        for(int i=startIndex+1; i<endIndex; i++) {
-            // cout << "#" << threadNum << "# arr[i] == " << arr[i] << endl;
-            if(arr[i] > max) {
-                max = arr[i];
+        int max = arr[startIndex];;
+        if (!(startIndex + 1 < endIndex))
+        {
+            // cout << "#" << threadNum << "# startIndex == " << startIndex << endl;
+            for (int i = startIndex + 1; i < endIndex; i++)
+            {
+                // cout << "#" << threadNum << "# arr[i] == " << arr[i] << endl;
+                if (arr[i] > max)
+                {
+                    max = arr[i];
+                }
             }
         }
 
         t = clock() - t;
-        cout << "#" + to_string(threadNum) + "# - Max value is " + to_string(max) + "\tTimer value: " << t << "\n";
+        cout << "#" + to_string(threadNum) + "# - Max value is " + to_string(max) + "\tTimer value: " << t / ((clock_t)1000) << "\n";
         // cout << "Max value is " << max << endl;
     }
 
@@ -72,4 +78,31 @@ int main(int argc, char **argv)
 /*
 gcc A1.cpp -lstdc++ -o A1.exe -fopenmp 
 -openmp
+*/
+
+/* Output:
+PS D:\Unic-ITMO\ParallelAlgs\_assigments> ./A1 100
+Allocating array with [100] size
+Start of parallel threads
+Thread #8# starts.
+#8# - Max value is 80   Timer value: Thread #4# starts.
+#4# - Max value is 40   Timer value: 0
+Thread #9# starts.
+#9# - Max value is 90   Timer value: 0
+Thread #6# starts.
+#6# - Max value is 60   Timer value: 0
+Thread #7# starts.
+#7# - Max value is 70   Timer value: 0
+0
+Thread #0# starts.
+Thread #2# starts.
+#2# - Max value is 20   Timer value: 0
+#0# - Max value is 0    Timer value: 0
+Thread #3# starts.
+Thread #1# starts.
+#1# - Max value is 10   Timer value: 0
+#3# - Max value is 30   Timer value: 0
+Thread #5# starts.
+#5# - Max value is 50   Timer value: 0
+End of parallel threads
 */

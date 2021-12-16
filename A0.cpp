@@ -1,16 +1,16 @@
 #include <iostream>
-#include <string>
-#include <cstring>
-// #include "mpi.h"
 
 using namespace std;
 
 int main(int argc, char **argv)
-// int main()
 {
-    const int len = 100;
-    
-    char str[len] = "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16"; // declare the size of string
+    // string size;
+    // stringstream ss;
+
+    // ss << argv[1];
+    // ss >> size;
+
+    char* str = argv[1]; // declare the size of string
     // cout << " Enter a string: " <<endl;  
     // cin.getline(str, 100); // use getline() function to read a string from input stream  
     // str = "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16";
@@ -31,4 +31,17 @@ int main(int argc, char **argv)
 
 /*
 gcc A0.cpp -lstdc++ -o A0.exe
+*/
+
+/* Output:
+PS D:\Unic-ITMO\ParallelAlgs\_assigments> ./A0 'Sasha walked along the highway and sucked drying'
+Words in sentence:
+Sasha
+walked
+along
+the
+highway
+and
+sucked
+drying
 */

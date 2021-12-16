@@ -1,6 +1,9 @@
 #include <iostream>
 #include <time.h>
 #include <stdlib.h>
+#include <sstream>
+#include <mpi.h>
+#include <omp.h>
 
 using namespace std;
 
@@ -41,9 +44,16 @@ void zero_init_matrix(double **matrix, long int n)
 
 int main(int argc, char **argv)
 {
-    const long int N = 1000;
+    string size;
+    stringstream ss;
+
+    ss << argv[1];
+    ss >> size;
+
+    const int N = stoi(size);
     double **A, **B, **C;
 
+    cout << "Allocating squared matrixes with [" << size << "] size" << endl;
     // Memory allocation for matrices A, B, C
     A = malloc_array(N);
     B = malloc_array(N);
@@ -55,9 +65,9 @@ int main(int argc, char **argv)
     zero_init_matrix(C, N);
     clock_t t;
 
-    #pragma omp shared(A, B, C, N, t) parallel
+#pragma omp shared(A, B, C, N, t) parallel
     {
-         // Matrix multiplication with cycle order ijk
+        // Matrix multiplication with cycle order ijk
         t = clock();
         for (int i = 0; i < N; i++)
             for (int j = 0; j < N; j++)
@@ -66,8 +76,8 @@ int main(int argc, char **argv)
         t = clock() - t;
         cout << "Time ijk loops is " << t / CLOCKS_PER_SEC << " seconds" << endl;
     }
-    
-    #pragma omp shared(A, B, C, N, t) parallel
+
+#pragma omp shared(A, B, C, N, t) parallel
     {
         // Matrix multiplication with cycle order jki
         zero_init_matrix(C, N);
@@ -80,7 +90,7 @@ int main(int argc, char **argv)
         cout << "Time jki loops is " << t / CLOCKS_PER_SEC << " seconds" << endl;
     }
 
-    #pragma omp shared(A, B, C, N, t) parallel
+#pragma omp shared(A, B, C, N, t) parallel
     {
         // Matrix multiplication with cycle order ikj
         zero_init_matrix(C, N);
@@ -100,3 +110,15 @@ int main(int argc, char **argv)
 
     return 0;
 }
+
+/* 
+Run: 
+gcc ./A2.cpp -lstdc++ -o A2.exe -fopenmp
+
+Output:
+PS D:\Unic-ITMO\ParallelAlgs\_assigments> ./A2c 1000
+Allocating squared matrixes with [1000] size
+Time ijk loops is 8 seconds
+Time jki loops is 15 seconds
+Time ikj loops is 3 seconds
+*/

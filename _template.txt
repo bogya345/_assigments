@@ -1,0 +1,7 @@
+/* 
+Run: 
+gcc ./Assignment.c -lstdc++ -o Assignment.exe -fopenmp
+
+Output:
+
+*/
