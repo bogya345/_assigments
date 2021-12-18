@@ -30,5 +30,13 @@ Run:
 gcc ./Assignment3.c -lstdc++ -o Assignment3.exe -fopenmp
 
 Output:
-
+PS > mpiexec ./A3
+Hello from process 0
+Hello from process 7
+Hello from process 2
+Hello from process 5
+Hello from process 3
+Hello from process 6
+Hello from process 1
+Hello from process 4
 */
