@@ -1,6 +1,8 @@
-/* 
-Run: 
-gcc ./Assignment.c -lstdc++ -o Assignment.exe -fopenmp
+/*
+Assignment:
+
+Run:
+mpic++ ./Assignment.c -o A.exe 
 
 Output:
 
