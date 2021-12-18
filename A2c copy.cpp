@@ -65,47 +65,43 @@ int main(int argc, char **argv)
     zero_init_matrix(C, N);
     clock_t t;
 
-    t = clock();
-    for (int i = 0; i < N; i++)
-    {
 #pragma omp shared(A, B, C, N, t) parallel
-#pragma omp for
-        for (int j = 0; j < N; j++)
-        {
-            for (int k = 0; k < N; k++)
-                C[i][j] += A[i][k] + B[k][j];
-        }
-    }
-    t = clock() - t;
-    cout << "Time ijk loops is " << t / CLOCKS_PER_SEC << " seconds" << endl;
-
-    t = clock();
-    for (int j = 0; j < N; j++)
     {
-#pragma omp shared(A, B, C, N, t) parallel
-#pragma omp for
-        for (int k = 0; k < N; k++)
-        {
-            for (int i = 0; i < N; i++)
-                C[i][j] += A[i][k] + B[k][j];
-        }
-    }
-    t = clock() - t;
-    cout << "Time jki loops is " << t / CLOCKS_PER_SEC << " seconds" << endl;
-
-    t = clock();
-    for (int i = 0; i < N; i++)
-    {
-#pragma omp shared(A, B, C, N, t) parallel
-#pragma omp for
-        for (int k = 0; k < N; k++)
-        {
+        // Matrix multiplication with cycle order ijk
+        t = clock();
+        for (int i = 0; i < N; i++)
             for (int j = 0; j < N; j++)
-                C[i][j] += A[i][k] + B[k][j];
-        }
+                for (int k = 0; k < N; k++)
+                    C[i][j] += A[i][k] + B[k][j];
+        t = clock() - t;
+        cout << "Time ijk loops is " << t / CLOCKS_PER_SEC << " seconds" << endl;
     }
-    t = clock() - t;
-    cout << "Time ikj loops is " << t / CLOCKS_PER_SEC << " seconds" << endl;
+
+#pragma omp shared(A, B, C, N, t) parallel
+    {
+        // Matrix multiplication with cycle order jki
+        zero_init_matrix(C, N);
+        t = clock();
+        for (int j = 0; j < N; j++)
+            for (int k = 0; k < N; k++)
+                for (int i = 0; i < N; i++)
+                    C[i][j] += A[i][k] * B[k][j];
+        t = clock() - t;
+        cout << "Time jki loops is " << t / CLOCKS_PER_SEC << " seconds" << endl;
+    }
+
+#pragma omp shared(A, B, C, N, t) parallel
+    {
+        // Matrix multiplication with cycle order ikj
+        zero_init_matrix(C, N);
+        t = clock();
+        for (int i = 0; i < N; i++)
+            for (int k = 0; k < N; k++)
+                for (int j = 0; j < N; j++)
+                    C[i][j] += A[i][k] * B[k][j];
+        t = clock() - t;
+        cout << "Time ikj loops is " << t / CLOCKS_PER_SEC << " seconds" << endl;
+    }
 
     // Freeing memory occupied by matrices A, B, C
     free_array(A, N);
@@ -117,12 +113,12 @@ int main(int argc, char **argv)
 
 /* 
 Run: 
-gcc ./A2c.cpp -lstdc++ -o A2c.exe -fopenmp
+gcc ./A2.cpp -lstdc++ -o A2.exe -fopenmp
 
 Output:
-PS > ./A2c 1000
+PS D:\Unic-ITMO\ParallelAlgs\_assigments> ./A2c 1000
 Allocating squared matrixes with [1000] size
 Time ijk loops is 8 seconds
-Time jki loops is 14 seconds
-Time ikj loops is 4 seconds
+Time jki loops is 15 seconds
+Time ikj loops is 3 seconds
 */
