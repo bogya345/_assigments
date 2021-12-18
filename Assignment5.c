@@ -29,14 +29,14 @@ Run:
 mpic++ ./Assignment5.c -o A5.exe 
 
 Output:
-PS > mpiexec ./A5
-processor LAPTOP-J9VBK914, process 7time = 3.9e-08
-processor LAPTOP-J9VBK914, process 6time = 3.8e-08
-processor LAPTOP-J9VBK914, process 5time = 4.1e-08
-processor LAPTOP-J9VBK914, process 4time = 6.4e-08
-processor LAPTOP-J9VBK914, process 2time = 6e-08
-processor LAPTOP-J9VBK914, process 0time = 3.9e-08
-processor LAPTOP-J9VBK914, process 3time = 3.8e-08
-processor LAPTOP-J9VBK914, process 1time = 5.3e-08
+PS > mpiexec ./A5 -n 7
+processor LAPTOP-J9VBK914, process 1time = 2.5e-08
+processor LAPTOP-J9VBK914, process 2time = 1.9e-08
+processor LAPTOP-J9VBK914, process 5time = 1.9e-08
+processor LAPTOP-J9VBK914, process 3time = 1.9e-08
+processor LAPTOP-J9VBK914, process 6time = 2.9e-08
+processor LAPTOP-J9VBK914, process 7time = 2.5e-08
+processor LAPTOP-J9VBK914, process 0time = 1.9e-08
+processor LAPTOP-J9VBK914, process 4time = 2.7e-08
 
 */
