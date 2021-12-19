@@ -152,10 +152,133 @@ int main(int argc, char **argv)
 
 /*
 Assignment:
+Write an MPI program in which two processes exchange messages, measure the time 
+per exchange iteration, and determine the dependence of the exchange time on the 
+message length. Determine the latency and maximum achievable bandwidth of the 
+communication network. Print the message length in bytes and the throughput in 
+MB/s to the console. Change the length of the message in a loop starting from 1 
+element and increase to 1,000,000 elements, increasing by 10 times at each 
+iteration.
 
 Run:
 mpic++ A8.cpp -o A8.exe 
 
 Output:
+PS D:\Unic-ITMO\ParallelAlgs\_assigments> mpiexec ./A8 -n 2
+Recieving msg (in 1 proc.) : 1
+Iteration #0:
 
+
+         t1=1
+#1# MSG:0        L = 400         R = 8000        s = 0   t1=1
+Sending msg (in 1 proc.) : 0
+
+Recieving msg (in 1 proc.) : 0
+
+         t0=1
+#0# MSG:0        L = 400         R = 8000        s = 0
+Iteration #1:
+
+
+         t1=1
+#1# MSG:1        L = 400         R = 8000        s = 0   t1=1
+Sending msg (in 1 proc.) : 1
+
+
+Recieving msg (in 1 proc.) : 1
+         t0=1
+#0# MSG:1        L = 400         R = 8000        s = 0
+Iteration #2:
+
+
+         t1=1
+#1# MSG:2        L = 400         R = 8000        s = 0   t1=1
+Sending msg (in 1 proc.) : 2
+
+
+Recieving msg (in 1 proc.) : 2
+         t0=1
+#0# MSG:2        L = 400         R = 8000        s = 0
+Iteration #3:
+
+
+         t1=1
+#1# MSG:3        L = 400         R = 8000        s = 0   t1=1
+Sending msg (in 1 proc.) : 3
+
+
+Recieving msg (in 1 proc.) : 3
+         t0=1
+#0# MSG:3        L = 400         R = 8000        s = 0
+Iteration #4:
+
+
+         t1=1
+#1# MSG:4        L = 400         R = 8000        s = 0   t1=1
+Sending msg (in 1 proc.) : 4
+
+
+Recieving msg (in 1 proc.) : 4
+         t0=1
+#0# MSG:4        L = 400         R = 8000        s = 0
+Iteration #5:
+
+
+         t1=1
+#1# MSG:5        L = 400         R = 8000        s = 0   t1=1
+Sending msg (in 1 proc.) : 5
+
+
+Recieving msg (in 1 proc.) : 5
+         t0=1
+#0# MSG:5        L = 400         R = 8000        s = 0
+Iteration #6:
+
+
+         t1=1
+#1# MSG:6        L = 400         R = 8000        s = 0   t1=1
+Sending msg (in 1 proc.) : 6
+
+
+         t0=1
+Recieving msg (in 1 proc.) : 6
+#0# MSG:6        L = 400         R = 8000        s = 0
+Iteration #7:
+
+
+         t1=1
+#1# MSG:7        L = 400         R = 8000        s = 0   t1=1
+Sending msg (in 1 proc.) : 7
+
+
+Recieving msg (in 1 proc.) : 7
+         t0=1
+#0# MSG:7        L = 400         R = 8000        s = 0
+Iteration #8:
+
+
+         t1=1
+#1# MSG:8        L = 400         R = 8000        s = 0   t1=1
+Sending msg (in 1 proc.) : 8
+
+
+Recieving msg (in 1 proc.) : 8
+         t0=1
+#0# MSG:8        L = 400         R = 8000        s = 0
+Iteration #9:
+
+
+         t1=1
+#1# MSG:9        L = 400         R = 8000        s = 0   t1=1
+Sending msg (in 1 proc.) : 9
+
+
+         t0=1
+Recieving msg (in 1 proc.) : 9
+#0# MSG:9        L = 400         R = 8000        s = 0
+
+################## Proc. 0 finished ##################
+         t1=1
+#1# MSG:10       L = 400         R = 8000        s = 0   t1=1
+################## Proc. 1 finished ##################
 */
