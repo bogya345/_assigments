@@ -46,7 +46,7 @@ int main(int argc, char **argv)
 
     if (rank == 0)
     {
-        cout << "Allocating array with [" << len << "] size in 0 proccess" << endl;
+        cout << "Filling array with [" << len << "] size in 0 proccess" << endl;
         // int *a = new int[len];
         // int *b = new int[len];
         for (int i = 0; i < len; i++)
