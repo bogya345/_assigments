@@ -64,12 +64,13 @@ int main(int argc, char **argv)
             t0secs = (clock() - t0) / CLOCKS_PER_SEC;
             // if (t0 == 0) { t0 = 0.000000001; }
             // t0 = 1;
-            t0secs = rand();
+            // t0secs = rand();
             cout << "\t t0secs=" << t0secs << endl;
             L = 100 * sizeof(msg);
             R = (2 * N * L) / t0;
             s = t0 / (2 * N);
-            cout << "#0# MSG:" << msg << "\t L = " << L << "\t R = " << R << "\t s = " << s << "\t t0=" << t0 << endl;
+            // cout << "#0# MSG:" << msg << "\t L = " << L << "\t R = " << R << "\t s = " << s << "\t t0=" << t0 << endl;
+            cout << "#0# MSG:" << msg << "\t L = " << L << "\t R = " << R << "\t s = " << s << endl;
 
             iters++;
         }
@@ -93,11 +94,12 @@ int main(int argc, char **argv)
             t1secs = (clock() - t1) / CLOCKS_PER_SEC;
             // t1 = 1;
             t1secs = rand() / 1000.0;
-            cout << "\t t1secs=" << t1secs << endl;
+            // cout << "\t t1secs=" << t1secs << endl;
             L = 100 * sizeof(msg);
             R = (2 * N * L) / t1;
             s = t1 / (2 * N);
-            cout << "#1# MSG:" << msg << "\t L = " << L << "\t R = " << R << "\t s = " << s << "\t t1=" << t1 << endl;
+            // cout << "#1# MSG:" << msg << "\t L = " << L << "\t R = " << R << "\t s = " << s << "\t t1=" << t1 << endl;
+            cout << "#1# MSG:" << msg << "\t L = " << L << "\t R = " << R << "\t s = " << s << endl;
 
             if (msg >= N)
             {
@@ -137,121 +139,110 @@ Run:
 mpic++ A8.cpp -o A8.exe 
 
 Output:
-PS > mpiexec ./A8 -n 2
+PS D:\Unic-ITMO\ParallelAlgs\_assigments> mpiexec ./A8 -n 2
 Iteration #0:
 Recieving msg (in 1 proc.) : 1
 
 
-         t1secs=0.041
-#1# MSG:0        L = 400         R = inf         s = 0   t1=0
+#1# MSG:0        L = 400         R = inf         s = 0
 Sending msg (in 1 proc.) : 0
 
 Recieving msg (in 1 proc.) : 0
 
-         t0secs=41
-#0# MSG:0        L = 400         R = 500         s = 0   t0=16
+         t0secs=0
+#0# MSG:0        L = 400         R = 571.429     s = 0
 Iteration #1:
 
 
-         t1secs=18.467
-#1# MSG:1        L = 400         R = 421.053     s = 0   t1=19
+#1# MSG:1        L = 400         R = 333.333     s = 1
 Sending msg (in 1 proc.) : 1
 
 
 Recieving msg (in 1 proc.) : 1
-         t0secs=18467
-#0# MSG:1        L = 400         R = 470.588     s = 0   t0=17
+         t0secs=0
+#0# MSG:1        L = 400         R = 533.333     s = 0
 Iteration #2:
 
 
-         t1secs=6.334
-#1# MSG:2        L = 400         R = 421.053     s = 0   t1=19
+#1# MSG:2        L = 400         R = 333.333     s = 1
 Sending msg (in 1 proc.) : 2
 
 
-         t0secs=6334
+         t0secs=0
 Recieving msg (in 1 proc.) : 2
-#0# MSG:2        L = 400         R = 470.588     s = 0   t0=17
+#0# MSG:2        L = 400         R = 533.333     s = 0
 Iteration #3:
 
 
-         t1secs=26.5
-#1# MSG:3        L = 400         R = 421.053     s = 0   t1=19
+#1# MSG:3        L = 400         R = 333.333     s = 1
 Sending msg (in 1 proc.) : 3
 
 
+         t0secs=0
 Recieving msg (in 1 proc.) : 3
-         t0secs=26500
-#0# MSG:3        L = 400         R = 470.588     s = 0   t0=17
+#0# MSG:3        L = 400         R = 500         s = 0
 Iteration #4:
 
 
-         t1secs=19.169
-#1# MSG:4        L = 400         R = 421.053     s = 0   t1=19
+#1# MSG:4        L = 400         R = 333.333     s = 1
 Sending msg (in 1 proc.) : 4
 
 
 Recieving msg (in 1 proc.) : 4
-         t0secs=19169
-#0# MSG:4        L = 400         R = 444.444     s = 0   t0=18
+         t0secs=0
+#0# MSG:4        L = 400         R = 500         s = 0
 Iteration #5:
 
 
-         t1secs=15.724
-#1# MSG:5        L = 400         R = 400         s = 1   t1=20
+#1# MSG:5        L = 400         R = 333.333     s = 1
 Sending msg (in 1 proc.) : 5
 
 
+         t0secs=0
 Recieving msg (in 1 proc.) : 5
-         t0secs=15724
-#0# MSG:5        L = 400         R = 444.444     s = 0   t0=18
+#0# MSG:5        L = 400         R = 500         s = 0
 Iteration #6:
 
 
-         t1secs=11.478
-#1# MSG:6        L = 400         R = 400         s = 1   t1=20
+#1# MSG:6        L = 400         R = 333.333     s = 1
 Sending msg (in 1 proc.) : 6
 
 
-         t0secs=11478
+         t0secs=0
 Recieving msg (in 1 proc.) : 6
-#0# MSG:6        L = 400         R = 444.444     s = 0   t0=18
+#0# MSG:6        L = 400         R = 500         s = 0
 Iteration #7:
 
 
-         t1secs=29.358
-#1# MSG:7        L = 400         R = 400         s = 1   t1=20
+#1# MSG:7        L = 400         R = 333.333     s = 1
 Sending msg (in 1 proc.) : 7
 
 
 Recieving msg (in 1 proc.) : 7
-         t0secs=29358
-#0# MSG:7        L = 400         R = 444.444     s = 0   t0=18
+         t0secs=0
+#0# MSG:7        L = 400         R = 470.588     s = 0
 Iteration #8:
 
 
-         t1secs=26.962
-#1# MSG:8        L = 400         R = 363.636     s = 1   t1=22
+#1# MSG:8        L = 400         R = 320         s = 1
 Sending msg (in 1 proc.) : 8
 
 
+         t0secs=0
 Recieving msg (in 1 proc.) : 8
-         t0secs=26962
-#0# MSG:8        L = 400         R = 400         s = 1   t0=20
+#0# MSG:8        L = 400         R = 470.588     s = 0
 Iteration #9:
 
 
-         t1secs=24.464
-#1# MSG:9        L = 400         R = 363.636     s = 1   t1=22
+#1# MSG:9        L = 400         R = 320         s = 1
 Sending msg (in 1 proc.) : 9
 
 
+         t0secs=0
 Recieving msg (in 1 proc.) : 9
-         t0secs=24464
-#0# MSG:9        L = 400         R = 400         s = 1   t0=20
-################## Proc. 0 finished ##################
+#0# MSG:9        L = 400         R = 470.588     s = 0
 
-         t1secs=5.705
-#1# MSG:10       L = 400         R = 363.636     s = 1   t1=22
+################## Proc. 0 finished ##################
+#1# MSG:10       L = 400         R = 320         s = 1
 ################## Proc. 1 finished ##################
 */
