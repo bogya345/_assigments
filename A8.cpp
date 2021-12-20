@@ -65,7 +65,7 @@ int main(int argc, char **argv)
             // if (t0 == 0) { t0 = 0.000000001; }
             // t0 = 1;
             // t0secs = rand();
-            cout << "\t t0secs=" << t0secs << endl;
+            // cout << "\t t0secs=" << t0secs << endl;
             L = 100 * sizeof(msg);
             R = (2 * N * L) / t0;
             s = t0 / (2 * N);
