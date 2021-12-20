@@ -1,4 +1,6 @@
 #include "mpi.h"
+#include <iostream>
+using namespace std;
 int main(int argc, char **argv)
 {
 	int rank, size, i, rbuf;
@@ -20,6 +22,28 @@ int main(int argc, char **argv)
 	MPI_Group_rank(new_group, &new_rank);
 	
 	//Display values: "rank =, newrank =, rbuf ="
+	cout << "rank = " << rank << "\tnew_rank = " << new_rank << "\trbuf = " << rbuf << endl;
 	
 	MPI_Finalize();
 }
+
+
+/*
+Assignment:
+Understand the new functions in Assignment15.c. 
+Append part of code
+
+Run:
+mpic++ Assignment15.cpp -o A15.exe
+
+Output:
+PS > mpiexec ./A15 -n 8
+rank = 3        new_rank = 3    rbuf = 6
+rank = 2        new_rank = 2    rbuf = 6
+rank = 1        new_rank = 1    rbuf = 6
+rank = 0        new_rank = 0    rbuf = 6
+rank = 7        new_rank = 3    rbuf = 22
+rank = 5        new_rank = 1    rbuf = 22
+rank = 6        new_rank = 2    rbuf = 22
+rank = 4        new_rank = 0    rbuf = 22
+*/
