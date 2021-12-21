@@ -13,3 +13,12 @@ int main(int argc, char **argv)
 	MPI_Finalize();
 	return 0;
 }
+
+/*
+Assignment:
+
+Run:
+mpic++ Assignment18_slave.c -o slave.exe
+
+Output:
+*/
