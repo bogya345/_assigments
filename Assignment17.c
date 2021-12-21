@@ -7,11 +7,19 @@ int main(int argc, char **argv)
 	MPI_Init(&argc, &argv);
 	MPI_Comm_size(MPI_COMM_WORLD, &size);
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+	
 	for (i = 0; i < 10; i++) {
 		a[i] = rank + 1.0;
 		if (rank == 0) b[i] = 'a';
 		else b[i] = 'b';
 	}
+	
+	if (rank == 0) {
+		for (i = 0; i < 10; i++) {
+			coout << "a[" << i << "] == " << a[i] << "\tb[" << i << "] == " << b[i] << endl;
+		}
+	}
+	
 	position = 0;
 	if (rank == 0) {
 		MPI_Pack(a, 10, MPI_FLOAT, buf, 100, &position, MPI_COMM_WORLD);
@@ -24,5 +32,12 @@ int main(int argc, char **argv)
 		MPI_Unpack(buf, 100, &position, a, 10, MPI_FLOAT, MPI_COMM_WORLD);
 		MPI_Unpack(buf, 100, &position, b, 10, MPI_CHAR, MPI_COMM_WORLD);
 	}
+	
+	if (rank == 0) {
+		for (i = 0; i < 10; i++) {
+			coout << "a[" << i << "] == " << a[i] << "\tb[" << i << "] == " << b[i] << endl;
+		}
+	}
+	
 	MPI_Finalize();
 }
