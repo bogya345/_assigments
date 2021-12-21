@@ -71,33 +71,33 @@ int main(int argc, char **argv)
 
     MPI_Barrier(MPI_COMM_WORLD); //barrier process synchronization
 
-    // // start timing for each process
-    // t = clock();
-    // // matrix multiplication
-    //  for (int i = 0; i < N; i++)
-    //     for (int k = 0; k < N; k++)
-    //         for (int j = 0; j < N; j++)
-    //             C[i][j] += A[i][k] * B[k][j];
-    // // end of timing
-    // t = clock() - t;
-
     // start timing for each process
     t = clock();
-    step = N / 8; //125
-    startInd = step * rank;
-    endInd = startInd + step;
     // matrix multiplication
-    for (int i = 0; i < N; i++)
+     for (int i = 0; i < N; i++)
         for (int k = 0; k < N; k++)
-            for (int j = startInd; j < endInd; j++)
-            {
-                // C[i][j] += A[i][k] * B[k][j];
-                singleSum += A[i][k] * B[k][j];
-                MPI_Reduce(&singleSum, &C[i][j], 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
-            }
-
+            for (int j = 0; j < N; j++)
+                C[i][j] += A[i][k] * B[k][j];
     // end of timing
     t = clock() - t;
+
+    // // start timing for each process
+    // t = clock();
+    // step = N / 8; //125
+    // startInd = step * rank;
+    // endInd = startInd + step;
+    // // matrix multiplication
+    // for (int i = 0; i < N; i++)
+    //     for (int k = 0; k < N; k++)
+    //         for (int j = startInd; j < endInd; j++)
+    //         {
+    //             // C[i][j] += A[i][k] * B[k][j];
+    //             singleSum += A[i][k] * B[k][j];
+    //             MPI_Reduce(&singleSum, &C[i][j], 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
+    //         }
+
+    // // end of timing
+    // t = clock() - t;
 
     // output the execution time of matrix multiplication at each process
     cout << "Proc. # " << rank << " : Time == " << t / CLOCKS_PER_SEC << " seconds" << endl;
@@ -111,3 +111,22 @@ int main(int argc, char **argv)
 
     MPI_Finalize();
 }
+
+/*
+Assignment:
+
+Run:
+mpic++ Assignment13.cpp -o A13
+
+Output:
+PS > mpiexec -n 8 A13
+Proc. # 2 : Time == 6 seconds
+Proc. # 3 : Time == 6 seconds
+Proc. # 1 : Time == 6 seconds
+Proc. # 5 : Time == 6 seconds
+Proc. # 0 : Time == 6 seconds
+Proc. # 6 : Time == 6 seconds
+Proc. # 4 : Time == 6 seconds
+Proc. # 7 : Time == 6 seconds
+Total time: 54
+*/
