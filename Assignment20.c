@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include "mpi.h"
+#include <iostream>
 #define BUFSIZE 100
+using namespace std;
 int main(int argc, char **argv)
 {
 	int bufsize, num, sum;
@@ -19,5 +21,6 @@ int main(int argc, char **argv)
 	} while (num >= BUFSIZE);
 	MPI_File_close(&fh);
 	//print the number of read symbols sum from the file
+	cout << sum << endl;
 	MPI_Finalize();
 }
