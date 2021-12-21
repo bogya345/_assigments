@@ -1,4 +1,6 @@
 #include "mpi.h"
+#include <iostream>
+using namespace std;
 int main(int argc, char **argv)
 {
 	int rank, size, rank1;
@@ -13,3 +15,22 @@ int main(int argc, char **argv)
 	MPI_Comm_free(&comm_revs);
 	MPI_Finalize();
 }
+
+
+/*
+Assignment:
+
+Run:
+mpic++ Assignment16.cpp -o A16.exe
+
+Output:
+PS > mpiexec A16 -n 8
+rank == 0       rank1 == 3
+rank == 1       rank1 == 3
+rank == 4       rank1 == 1
+rank == 7       rank1 == 0
+rank == 6       rank1 == 0
+rank == 3       rank1 == 2
+rank == 5       rank1 == 1
+rank == 2       rank1 == 2
+*/
